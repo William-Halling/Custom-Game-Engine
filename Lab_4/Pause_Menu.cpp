@@ -1,7 +1,5 @@
 #include "Pause_Menu.h"
 
-
-
 Pause_Menu::Pause_Menu()
 {
 	m_MenuOption["customerSupport"] = std::make_shared<CustomerSupport_Command>();
@@ -12,9 +10,7 @@ Pause_Menu::Pause_Menu()
 }
 
 
-
 Pause_Menu::~Pause_Menu(){}
-
 
 void Pause_Menu::setMenuCommand(int option, std::shared_ptr<Menu_Command> commandList)
 {
@@ -53,78 +49,3 @@ void Pause_Menu::generate()
 	}
 	ImGui::End();
 }
-
-
-
-
-/****************
-class Menu
-{
-public:
-	virtual ~Menu() {}
-	virtual void draw() = 0;
-};
-
-class MainMenu : public Menu
-{
-public:
-	void draw() override
-	{
-		if (ImGui::Button("Customer Support"))
-		{
-			// Push Customer Support menu
-		}
-
-		if (ImGui::Button("Save"))
-		{
-			// Push Save menu
-		}
-
-		if (ImGui::Button("Load"))
-		{
-			// Push Load menu
-		}
-
-		if (ImGui::Button("Resume"))
-		{
-			// Resume game
-		}
-
-		if (ImGui::Button("Quit"))
-		{
-			// Quit application
-		}
-	}
-};
-
-class CustomerSupportMenu : public Menu
-{
-public:
-	void draw() override
-	{
-		ImGui::Text("Customer Support Info");
-
-		if (ImGui::Button("Back"))
-		{
-			// Pop this menu
-		}
-	}
-};
-
-// Define other menus similarly...
-
-
-void SpecialKeys::pauseGame()
-{
-	if (!isMenuOpen)
-	{
-		menuManager.pushMenu(std::make_shared<MainMenu>());
-		isMenuOpen = true;
-	}
-	else
-	{
-		// code to close the menu
-		isMenuOpen = false;
-	}
-}
-**/
