@@ -10,8 +10,8 @@ class MenuManager
 		MenuManager() = default;
 		~MenuManager() = default;
 
-		void pusheMenu(std::unique_ptr<Menu> menu);
-		void popMenu();
+		void PusheMenu(std::unique_ptr<Menu> menu);
+		void PopMenu();
 
 		void Draw();
 		bool HasMenus() const;
