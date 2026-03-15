@@ -1,19 +1,18 @@
 #pragma once
 
+#include "MenuCommand.h"
 
-#include "Menu_Command.h"
-#include "Menu_Manager.h"
+class MenuManager;
 
-
-class Back_Command : public Menu_Command
+class BackCommand final : public MenuCommand
 {
 	public:
-		Back_Command();
-		Back_Command(Menu_Manager& menuManager);
-
-		void goBack();
-		void executeTask() override;
-
+	
+	    explicit BackCommand(MenuManager& manager);
+	
+	    void Execute() override;
+	
 	private:
-		Menu_Manager& m_MenuManager;
+	
+	    MenuManager& m_manager;
 };
