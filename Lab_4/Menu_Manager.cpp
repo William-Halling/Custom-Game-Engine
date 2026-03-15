@@ -1,35 +1,32 @@
-#include "Menu_Manager.h"
+#include "MenuManager.h"
+#include "Menu.h"
 
-
-class MenuManager
+void MenuManager::PushMenu(std::unique_ptr<Menu> menu)
 {
-public:
-	void draw()
-	{
-		if (!menuStack.empty())
-		{
-			menuStack.top()->draw();
-		}
-	}
-
-	void pushMenu(std::shared_ptr<Menu> menu)
-	{
-		menuStack.push(menu);
-	}
-
-	void popMenu()
-	{
-		if (!menuStack.empty())
-		{
-			menuStack.pop();
-		}
-	}
-
-private:
-	std::stack<std::shared_ptr<Menu>> menuStack;
-};
-
-void generateMenu(std::shared_ptr<Menu> menu)
-{
-	menu->generate();
+	m_MenuStack.push(std::move(menu));
 }
+
+
+void MenuManager::PopMenu()
+{
+	if(!m_menuStack.empty())
+	{
+		m_menuStack.pop();
+	}
+}
+
+
+void MenuManager::Draw()
+{
+	if(!m_menuStack.empty())
+	{
+		m_menuStack.top()->Draw();
+	}
+}
+
+
+bool MenuManager::HasMenus() const
+{
+	return !m_menuStack.empty();
+}
+
