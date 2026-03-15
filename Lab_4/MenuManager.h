@@ -13,8 +13,8 @@ class MenuManager
 		void pusheMenu(std::unique_ptr<Menu> menu);
 		void popMenu();
 
-		void draw();
-		bool hasMenu() const;
+		void Draw();
+		bool HasMenus() const;
 
 	private:
 		std::stack<std::unique_ptr<Menu>> m_menuStack;
