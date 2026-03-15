@@ -1,0 +1,6 @@
+class ICommand
+{
+  public:
+    virutal ~ICommand() = default;
+    virtual void Execute() = 0;
+};
