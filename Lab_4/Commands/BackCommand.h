@@ -1,10 +1,10 @@
 #pragma once
 
-#include "MenuCommand.h"
+#include "ICommand.h"
 
 class MenuManager;
 
-class BackCommand final : public MenuCommand
+class BackCommand final : public ICommand
 {
 	public:
 	
