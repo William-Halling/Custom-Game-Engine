@@ -1,15 +1,17 @@
 #pragma once
-#include "ICommand.h"
-#include <functional>
+#include "PauseMenu_Commands.h"
+#include <string>
 
-class SaveCommand : public ICommand
+class SaveCommand : public PauseMenu_Commands
 {
-  public:
-    SaveCommand(std::function<void(int)> saveFunc, std::function<void()> backFunc);
-    void Execute() override;
+public:
+    explicit SaveCommand(const std::string& playerName, int playerScore, const std::string& playerLocation);
+    void execute() override;
 
-  private:
-    void ShowDialog();
-    std::function<void(int)> m_SaveFunc;
-    std::function<void()> m_BackFunc;
+private:
+    std::string m_playerName;
+    int         m_playerScore;
+    std::string m_playerLocation;
+
+    void saveToFile(const std::string& filename) const;
 };
