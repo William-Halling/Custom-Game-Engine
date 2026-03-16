@@ -1,18 +1,21 @@
 #pragma once
-
 #include "ICommand.h"
+#include <functional>
 
-class MenuManager;
-
-class BackCommand final : public ICommand
+class BackCommand : public ICommand
 {
 	public:
-	
-	    explicit BackCommand(MenuManager& manager);
-	
-	    void Execute() override;
-	
+	    explicit BackCommand(std::function<void()> onBack) : m_OnBack(onBack) {}
+	    
+		void Execute() override 
+		{ 
+			if (m_OnBack)
+			{
+				m_OnBack(); 
+			}
+		}
+
+
 	private:
-	
-	    MenuManager& m_manager;
+    	std::function<void()> m_OnBack;
 };
