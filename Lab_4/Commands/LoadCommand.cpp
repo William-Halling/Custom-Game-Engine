@@ -1,51 +1,44 @@
+// LoadCommand.cpp
 #include "LoadCommand.h"
-#include "Player.h"
-#include "BackCommand.h"
-
-#include <fstream>
-#include <iostream>
-#include <glm/glm.hpp>
 #include <imgui.h>
 
-LoadCommand::LoadCommand(std::shared_ptr<BackCommand> backCommand)
-    : m_backCommand(std::move(backCommand))
+
+LoadCommand::LoadCommand(std::function<void(int)> loadFunc, std::function<void()> backFunc)
+    : m_LoadFunc(loadFunc), m_BackFunc(backFunc)
 {
-    m_saveFiles =
-    {
-        "saveOne.txt",
-        "saveTwo.txt",
-        "saveThree.txt"
-    };
+    m_SaveFiles = {"save1.txt", "save2.txt", "save3.txt"};
 }
 
 
 void LoadCommand::Execute()
 {
-    DisplayLoadDialog();
+    ShowDialog();
 }
 
 
-void LoadCommand::DisplayLoadDialog()
+void LoadCommand::ShowDialog()
 {
-    if (ImGui::Begin("Load Game"))
+    ImGui::Begin("Load Game");
+	
+    for (size_t i = 0; i < m_SaveFiles.size(); ++i)
     {
-        for (int i = 0; i < 3; ++i)
+        if (ImGui::Button(("Load " + std::to_string(i+1)).c_str()))
         {
-            if (ImGui::Button(("Load " + std::to_string(i + 1)).c_str()))
-            {
-                Player player = LoadSavedGame(i + 1);
-
-                std::cout << "Loaded Player: " << player.GetPlayerName() << " | Score: " << player.GetPlayerScore() << std::endl;
-            }
-            ImGui::Text("%s", m_saveFiles[i].c_str());
-        }
-
+            if (m_LoadFunc)
+			{
+				m_LoadFunc(static_cast<int>(i+1));
+        	}
+		}
 		
-        if (ImGui::Button("Back"))
-        {
-            m_backCommand->Execute();
-        }
-
-        ImGui::End();
+        ImGui::SameLine();
+        ImGui::Text("%s", m_SaveFiles[i].c_str());
     }
+
+	
+    if (ImGui::Button("Back") && m_BackFunc)
+	{
+		m_BackFunc();
+	}
+	
+	ImGui::End();
 }
