@@ -1,13 +1,13 @@
 // CustomerSupport_Command.h (in game directory, not engine core)
 #pragma once
-#include "MenuCommand.h"
+#include "ICommand.h"
 #include <string>
 #include <vector>
 #include <memory>
 
 class BackCommand; // forward declare
 
-class CustomerSupport_Command : public MenuCommand
+class CustomerSupport_Command : public ICommand
 {
 	public:
 	    CustomerSupport_Command(std::shared_ptr<BackCommand> backCmd);
