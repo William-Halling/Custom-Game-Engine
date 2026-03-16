@@ -1,94 +1,58 @@
+// GamePaused_State.cpp
 #include "GamePaused_State.h"
+#include <imgui.h>
+
+GamePaused_State::GamePaused_State(std::shared_ptr<EngGUI> gui, std::shared_ptr<InputManager> input)
+    : m_GUI(gui), m_Input(input)
+{}
 
 
-
-std::map<std::string, std::shared_ptr<Menu_Commands>> commandMap;
-
-GamePaused_State::GamePaused_State(std::shared_ptr<Window> window, std::shared_ptr<Keyboard_Input> keyboardInput, std::shared_ptr<Mouse_Input> mouseInput, std::shared_ptr<EngGUI> gui) :
-    m_window(window),
-    m_keyboardInput(keyboardInput),
-    m_mouseInput(mouseInput),
-    m_DisplayOptions(gui)
+void GamePaused_State::Enter()
 {
-
-    commandMap["Resume Game"] = std::make_shared<ResumeCommand>();
-    commandMap["Save Game"]   = std::make_shared<SaveCommand>();
-    commandMap["Load Game"]   = std::make_shared<Load_Command>();
+    // Show cursor, disable game input, etc.
 }
 
 
-GamePaused_State::~GamePaused_State(){}
-
-
-void GamePaused_State::handlePlayerInput()
+void GamePaused_State::Exit()
 {
-    //sf::Event event;
+    // Hide cursor, re-enable game input
+}
 
-    //while (window.pollEvent(event)) 
+
+void GamePaused_State::HandleInput()
+{
+    // Handle pause menu specific input (e.g., navigate menu)
+}
+
+
+void GamePaused_State::Update(float /*deltaTime*/)
+{
+    // Update any animations in pause menu
+}
+
+
+void GamePaused_State::Render()
+{
+    m_GUI->BeginFrame();
+
+    if (m_ShowPauseMenu)
     {
+        ImGui::Begin("Pause Menu");
+
         
-    }
-}
-
-void GamePaused_State::update()
-{
-    m_DisplayOptions->beginFrame();
-    if (ImGui::Begin("Pause Menu"))
-    {
-        if (ImGui::Button("Resume Game"))
+        if (ImGui::Button("Resume"))
         {
-
+            // Signal to state machine to pop this state
         }
+        
+        if (ImGui::Button("Save")) { /*...*/ }
+        if (ImGui::Button("Load")) { /*...*/ }
+        if (ImGui::Button("Quit")) { /*...*/ }
+        
+        ImGui::End();
     }
+
+    
+    m_GUI->EndFrame();
+    m_GUI->Render();
 }
-
-void GamePaused_State::generate()
-{
-    //window.clear();
-    // Render the paused menu
-    //window.display();
-}
-
-
-/************
-void handlePlayerInput();
-void Update() override;
-void Generate() override;
-
-GamePausedState::GamePausedState(QWidget* parent) : QMainWindow(parent)
-{
-    // Create the SFML window
-    sfmlWindow.create(sf::VideoMode(800, 600), "Game Window");
-
-    // Set up the timer to update and draw at regular intervals
-    connect(&timer, &QTimer::timeout, this, &GamePausedState::update);
-    connect(&timer, &QTimer::timeout, this, &GamePausedState::draw);
-    timer.start(16); // 60 FPS (16ms per frame)
-
-    // Other initialization code for menu items, buttons, etc.
-}
-
-GamePausedState::~GamePausedState() {
-    // Clean up any resources
-}
-
-void GamePausedState::handleInput() {
-    sf::Event event;
-    while (sfmlWindow.pollEvent(event)) {
-        // Handle user input events
-        // Update menu items or buttons based on user input
-    }
-}
-
-void GamePausedState::update() 
-{
-    // Update the paused menu state
-}
-
-void GamePausedState::draw() 
-{
-    sfmlWindow.clear();
-    sfmlWindow.display();
-
-}
-*****/
